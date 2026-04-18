@@ -1,5 +1,7 @@
 # Getting Started
 
+---
+
 ### Installating the Deathrun Manager module
 
 1. Download the latest release from [Releases](https://github.com/DeathrunCS2/DeathrunManager/releases).

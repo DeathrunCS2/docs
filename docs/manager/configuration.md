@@ -1,5 +1,7 @@
 # Configuration
 
+---
+
 The configurations values do exactly what they are labeled, so I believe it doesn't need further explanation.
 
 #### deathrun.json(default)
