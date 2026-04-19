@@ -1,10 +1,10 @@
 body, [data-bs-theme=dark] {
-  --bs-body-bg: #0C142C;
+  --bs-body-bg: #060b1c;
 }
 
 .bg-body, [data-bs-theme=dark] {
-    --bs-bg-opacity: 0.8;
-    background-color: #0C142C;
+    --bs-bg-opacity: 0.15;
+    background-color: #ffffff;
 }
 
 .navbar-nav {
