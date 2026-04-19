@@ -1,7 +1,8 @@
 body, [data-bs-theme=dark] {
-  --bs-body-bg: #1A161D;
+  --bs-body-bg: #141414;
 }
 
 .bg-body, [data-bs-theme=dark] {
-    --bs-bg-opacity: .3;
+    --bs-bg-opacity: 0.8;
+    background-color: #141414;
 }
