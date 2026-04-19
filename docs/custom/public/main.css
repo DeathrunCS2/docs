@@ -6,3 +6,8 @@ body, [data-bs-theme=dark] {
     --bs-bg-opacity: 0.8;
     background-color: #141414;
 }
+
+.navbar-nav {
+    --bs-nav-link-color: #848484;
+    --bs-nav-link-hover-color: #E7E7E7;
+}
