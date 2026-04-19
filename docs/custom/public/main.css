@@ -1,13 +1,13 @@
 body, [data-bs-theme=dark] {
-  --bs-body-bg: #141414;
+  --bs-body-bg: #0C142C;
 }
 
 .bg-body, [data-bs-theme=dark] {
     --bs-bg-opacity: 0.8;
-    background-color: #141414;
+    background-color: #0C142C;
 }
 
 .navbar-nav {
-    --bs-nav-link-color: #848484;
-    --bs-nav-link-hover-color: #E7E7E7;
+    --bs-nav-link-color: #6C7484;
+    --bs-nav-link-hover-color: #BAC0CB;
 }
