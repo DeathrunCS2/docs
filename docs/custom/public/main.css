@@ -1,3 +1,7 @@
 body {
-  --bs-body-bg: #241F27;
+  --bs-body-bg: #1A161D;
+}
+
+.bg-body {
+    --bs-bg-opacity: .3;
 }
