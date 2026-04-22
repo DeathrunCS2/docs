@@ -41,7 +41,6 @@
       "_appLogoPath": "images/logo.svg",
       "_appFaviconPath": "images/favicon.ico",
       "_enableSearch": true,
-      "_disableAffix": true,
       "pdf": false
     }
   }
