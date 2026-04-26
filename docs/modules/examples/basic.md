@@ -49,7 +49,7 @@ public class ExampleModule : IDeathrunModule
     
     #region IDeathrunModule
     
-    //This method is called when all the ModSharp modules have been loaded
+    //This method is called when the deathrun module tries to load and the return value is the result
     public bool Init(bool hotReload)
     {
         //Subscribe to PlayersManager's `Created` event to be notified when a new deathrun player is created
@@ -57,7 +57,7 @@ public class ExampleModule : IDeathrunModule
         return true;
     }
 
-    //This method is called right after the Init method
+    //This method is called after the deathrun module has been loaded successfully
     public void PostInit(bool hotReload) { }
 
     //This method is called when all the Deathrun modules have been loaded
