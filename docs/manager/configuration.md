@@ -36,6 +36,24 @@ The configurations values do exactly what they are labeled, so I believe it does
 }
 ```
 
+#### economy_system.json(default)
+```json
+{
+  "EnableEconomySystem": true,
+  "StartCreditsNum": 5,
+  "KillCreditsNum": 2,
+  "GameMasterKillCreditsBonusNum": 2,
+  "ShowCreditsHud": true,
+  "Spacer": "// If EnableEconomySystem is true, you have to configure the database connection details below too.",
+  "Host": "localhost",
+  "Database": "database_name",
+  "User": "database_user",
+  "Password": "database_password",
+  "Port": 3306,
+  "TableName": "deathrun_economy"
+}
+```
+
 #### game_cvars.json(default)
 ```json
 {
