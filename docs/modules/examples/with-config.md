@@ -14,6 +14,7 @@ using Sharp.Shared;
 using ExampleWithConfig.Config;
 
 namespace ExampleWithConfig;
+
                                                   //TestConfigStructure is the config structure that will
                                                   //be used by the DeathrunManager
 public class ExampleWithConfig : IDeathrunModule, IDeathrunModuleConfig<TestConfigStructure>
@@ -59,13 +60,10 @@ public class ExampleWithConfig : IDeathrunModule, IDeathrunModuleConfig<TestConf
     }
     
     #region IDeathrunModule
-    
-    //called when a deathrun module's config is reloaded
-    public void OnConfigParsed<TConfig>(TConfig config)
+
+    public void OnConfigParsed(TestConfigStructure config)
     {
-        _logger.LogInformation("[{moduleName}] {colorMessage}",
-            GetType().Name, 
-            $"Reloaded config! New test string value: {(config as TestConfigStructure)?.TestString}");
+        _logger.LogInformation("{coloredMsg}", "Configuration parsed successfully!");  
     }
 
     public bool Init(bool hotReload) => true;
