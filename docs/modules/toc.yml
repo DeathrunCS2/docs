@@ -1,6 +1,7 @@
-- name: Introduction
-  href: introduction.md
 
-- name: Creating Deathrun modules
+
+- name: Creating modules
   items:
+  - href: introduction.md
   - href: examples/basic.md
+  - href: examples/with-config.md
