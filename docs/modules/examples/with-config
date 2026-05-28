@@ -1,0 +1,143 @@
+# Basic module with Config implementation 
+
+---
+
+`ExampleWithConfig.cs`
+```csharp
+
+using System;
+using DeathrunManager.Shared;
+using DeathrunManager.Shared.Config;
+using DeathrunManager.Shared.Objects;
+using Microsoft.Extensions.Logging;
+using Sharp.Shared;
+using ExampleWithConfig.Config;
+
+namespace ExampleWithConfig;
+                                                  //TestConfigStructure is the config structure that will
+                                                  //be used by the DeathrunManager
+public class ExampleWithConfig : IDeathrunModule, IDeathrunModuleConfig<TestConfigStructure>
+{
+    public string                                  Name                          => "Example Module with Config";
+    public string                                  Author                        => "AquaVadis";
+
+    //exposed deathrun manager instance
+    public IDeathrunManager                        DeathrunManager               { get; } 
+    
+    //getter and setter for the config
+    public TestConfigStructure?                    Config                        { get; set; }
+    
+    //getter and setter for the config options
+    public ConfigOptions                           ConfigOptions                 { get; set; }
+    
+    private readonly ILogger<ExampleWithConfig>    _logger;
+    private readonly ISharedSystem                 _sharedSystem;
+    
+    //primary ctor is also valid
+    public ExampleWithConfig(ISharedSystem sharedSystem, IDeathrunManager deathrunManagerApi)
+    {
+        _sharedSystem        = sharedSystem;
+        _logger              = sharedSystem.GetLoggerFactory().CreateLogger<ExampleWithConfig>();
+        DeathrunManager      = deathrunManagerApi;
+
+        //set the config object matching the config structure we've defined in the generic interface
+        Config = new TestConfigStructure();
+        
+        //set the config options object that will be used by the deathrun module to load the config
+        ConfigOptions = new ConfigOptions
+        {
+            //override config's filename; default is `config` - no need to include the file extension
+            FileName = "custom_config", 
+            
+            //optional; default is sharp/configs/Deathrun.Manager/modules/{moduleName}
+            //if provided a custom config path, it will always be relative to the deathrun modules' config path
+            CustomPath = "custom_path", 
+            
+            //whether to allow the deathrun module to be reloaded with the `ms_config_{moduleName}_reload` command
+            AllowReloadCommand = true
+        }; 
+    }
+    
+    #region IDeathrunModule
+    
+    //called when a deathrun module's config is reloaded
+    public void OnConfigParsed<TConfig>(TConfig config)
+    {
+        _logger.LogInformation("[{moduleName}] {colorMessage}",
+            GetType().Name, 
+            $"Reloaded config! New test string value: {(config as TestConfigStructure)?.TestString}");
+    }
+
+    public bool Init(bool hotReload) => true;
+    
+    //The method is called when the DeathrunManager is shutting down, but before shutting down the DeathrunManager's managers
+    public void Shutdown(bool hotReload) { }
+ 
+    #endregion
+    
+    #region Log 
+    
+    private static void Log(string header, string message, 
+        ConsoleColor backgroundColor = ConsoleColor.DarkGray,
+        ConsoleColor textColor = ConsoleColor.Black)
+    {
+        Console.ForegroundColor = textColor;
+        Console.BackgroundColor = backgroundColor;
+        Console.Write($"{header}:");
+        Console.ResetColor();
+        Console.Write($" {message} \n");
+    }
+    
+    #endregion
+}
+
+```
+
+`TestConfigStructure.cs`
+```csharp
+
+public class TestConfigStructure
+{
+    public string? TestString { get; init; } = "test string field";
+    public int TestInt { get; init; } = 12345;
+    public short TestShort { get; init; } = 12345;
+    public byte TestByte { get; init; } = 123;
+    public ushort TestUShort { get; init; } = 12345;
+    public sbyte TestSByte { get; init; } = 123;
+    public char TestChar { get; init; } = 'A';
+    public ulong TestULong { get; init; } = 1234567890;
+    public uint TestUInt { get; init; } = 12345;
+    public long TestLong { get; init; } = 1234567890;
+    public bool TestBool { get; init; } = true;
+    public float TestFloat { get; init; } = 123.456f;
+    public double TestDouble { get; init; } = 123.456;
+    public decimal TestDecimal { get; init; } = 123.456m;
+    
+    public string[] TestArray { get; init; } = [ "test", "array" ];
+}
+
+```
+
+`ExampleModule.csproj`
+```csharp
+
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <LangVersion>13</LangVersion>
+        <Nullable>enable</Nullable>
+        <AssemblyName>ExampleWithConfig</AssemblyName>
+        <RootNamespace>ExampleWithConfig</RootNamespace>
+        <PlatformTarget>x64</PlatformTarget>
+        <Version>0.0.1</Version>
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="DeathrunManager.Shared" Version="*" />
+      <PackageReference Include="ModSharp.Sharp.Shared" Version="*" />
+    </ItemGroup>
+</Project>
+
+```
+
